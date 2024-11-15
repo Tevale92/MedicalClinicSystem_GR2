@@ -1,6 +1,8 @@
-import java.time.LocalDate;
+import java.util.ArrayList;
 
 interface Schedulable {
 
-    public LocalDate scheduleAppointment();
+    public void scheduleAppointment(Appointment appointment);
+
+    public ArrayList<Appointment> getAppointments();
 }

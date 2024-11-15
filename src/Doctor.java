@@ -8,12 +8,12 @@ import java.util.ArrayList;
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 
-public class Doctor extends Staff {
+public class Doctor extends Staff implements Schedulable {
 
     /// Doctor private data members
     private String drDesc;
     private ArrayList<Person> listOfPatients = new ArrayList<>();
-    private ArrayList<LocalDate> listOfAppointments = new ArrayList<>();
+    private ArrayList<Appointment> listOfAppointments = new ArrayList<>();
 
     /**
      * Parameterized constructor for the Doctor class.
@@ -48,10 +48,10 @@ public class Doctor extends Staff {
         listOfPatients.add(patient);
     }
     /**
-     * Method to add a date to the list of appointments of the Doctor.
+     * Defining interface method from Schedulable to add an Appointment to the list of appointments.
      * @param appointment
      */
-    public void addAppointment(LocalDate appointment) {
+    public void scheduleAppointment(Appointment appointment) {
         listOfAppointments.add(appointment);
     }
 
@@ -73,16 +73,20 @@ public class Doctor extends Staff {
      * Getter method to return the list of LocalDate (appointments) object's of the Doctor.
      * @return listOfAppointments
      */
-    public ArrayList<LocalDate> getListOfAppointments() {
+    public ArrayList<Appointment> getAppointments() {
         return listOfAppointments;
     }
 
     /**
-     * Defining abstract method from the Staff abstract class.
+     * Defining abstract method from the Staff abstract class to calculate overtime salary.
      * @param hours
      * @return overtimeSalary is 50% more for Doctor
+     * @throws IllegalArgumentException hours cannot be negative
      */
     public double overtimeSalary(double hours) {
+        if (hours < 0) {
+            throw new IllegalArgumentException("Hours cannot be negative");
+        }
         double overtimeSalary = getWeeklySalary();
         if (hours > 40) {
             overtimeSalary = overtimeSalary/40;
@@ -96,7 +100,7 @@ public class Doctor extends Staff {
      * @return Doctor basic info
      */
     public String toString() {
-        return "";
+        return "Dr. " + getFName() + " " + getLName() + ", " + getDrDesc() + ". ID = " + getStaffID();
     }
 
 }

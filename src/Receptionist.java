@@ -8,37 +8,41 @@ import java.util.ArrayList;
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 
-public class Receptionist extends Staff{
+public class Receptionist extends Staff implements Schedulable{
 
     /// Receptionist private data members
-    private ArrayList<LocalDate> scheduleList = new ArrayList<>();
+    private ArrayList<Appointment> scheduleList = new ArrayList<>();
 
     public Receptionist(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double weeklySalary) {
         super(fName, lName, age, gender, dob, staffID, weeklySalary);
     }
 
     /**
-     * Method to add a date to the schedule list of the Receptionist.
-     * @param date
+     * Defining interface method from Schedulable to add an Appointment to the list of appointments.
+     * @param appointment
      */
-    public void addSchedule(LocalDate date) {
-        scheduleList.add(date);
+    public void scheduleAppointment(Appointment appointment) {
+        scheduleList.add(appointment);
     }
 
     /**
-     * Method to return the schedule list of the Receptionist.
+     * Defining interface method from Schedulable to return the list of Appointment objects.
      * @return scheduleList
      */
-    public ArrayList<LocalDate> getScheduleList() {
+    public ArrayList<Appointment> getAppointments() {
         return scheduleList;
     }
 
     /**
-     * Defining abstract method from the Staff abstract class.
+     * Defining abstract method from the Staff abstract class to calculate overtime salary.
      * @param hours
      * @return overtimeSalary is 25% more for Receptionist
+     * @throws IllegalArgumentException hours cannot be negative
      */
     public double overtimeSalary(double hours) {
+        if (hours < 0) {
+            throw new IllegalArgumentException("Hours cannot be negative");
+        }
         double overtimeSalary = getWeeklySalary();
         if (hours > 40) {
             overtimeSalary = overtimeSalary/40;
@@ -52,6 +56,6 @@ public class Receptionist extends Staff{
      * @return Receptionist basic info
      */
     public String toString() {
-        return "";
+        return getFName() + " " + getLName() + ". ID = " + getStaffID();
     }
 }
