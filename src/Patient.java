@@ -1,3 +1,3 @@
-public class Patient extends Person {
+public class Patient {
 
 }
