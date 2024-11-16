@@ -1,13 +1,14 @@
 import java.time.LocalDate;
 
 /**
- * Superclass Person which defines the common attributes and methods for any person at the Clinic.
- * @version 1.1
+ * Abstract Superclass Person which defines
+ * the common attributes and methods for any person at the Clinic.
+ * @version 1.3
  * @since 11/14/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 
-public class Person {
+public abstract class Person {
 
     /// Person private data members
     private String fName;
@@ -113,7 +114,12 @@ public class Person {
      * @return first name, last name and age
      */
     public String toString() {
-        return getFName() + " " + getLName() + ", is " + getAge() + " years old.";
+        return String.format("%s %s, %s years old.", getFName(), getLName(),
+                getAge());
     }
+
+    public abstract void updateInfo(String fName, String lName, int age, String gender, LocalDate dob);
+
+    public abstract String displayInfo();
 
 }

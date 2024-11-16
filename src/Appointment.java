@@ -1,5 +1,12 @@
 import java.time.LocalDate;
 
+/**
+ * Appointment class which creates an object to describe the Appointment for the Patient and Staff.
+ * @version 1.3
+ * @since 11/15/2024
+ * @author Louis Chartier, Rima Dagher and David Demers
+ */
+
 public class Appointment {
 
     /// Appointment private data members
