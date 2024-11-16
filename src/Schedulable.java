@@ -5,4 +5,5 @@ interface Schedulable {
     public void scheduleAppointment(Appointment appointment);
 
     public ArrayList<Appointment> getAppointments();
+
 }
