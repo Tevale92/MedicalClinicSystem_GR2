@@ -19,6 +19,7 @@ public class Patient extends  Person implements Schedulable, Treatable {
     private LocalDate dismissedDate;
     private Doctor currentDoctor;
     private ArrayList<Appointment> appointments = new ArrayList<>();
+    private ArrayList<Billing> billings = new ArrayList<>();
 
     /**
      * Default parameterized constructor for the Patient Class.
@@ -32,7 +33,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
      * @param admitDate
      * @param dismissedDate
      * @param currentDoctor
-     * @param appointmentDate
      */
     public Patient(String fName, String lName, int age, String gender, LocalDate dob, String patientId, String diagnostic,
         LocalDate admitDate, LocalDate dismissedDate, Doctor currentDoctor) {
@@ -43,6 +43,7 @@ public class Patient extends  Person implements Schedulable, Treatable {
         setAdmitDate(admitDate);
         setDismissedDate(dismissedDate);
         setCurrentDoctor(currentDoctor);
+        this.billings = new ArrayList<>();
     }
 
     /**
@@ -93,6 +94,14 @@ public class Patient extends  Person implements Schedulable, Treatable {
      */
     public  void scheduleAppointment(Appointment appointment) {
         appointments.add(appointment);
+    }
+
+    /**
+     * Method to add billing object to the patient class.
+     * @param billing
+     */
+    public void addBilling(Billing billing) {
+        billings.add(billing);
     }
 
     /**
@@ -193,6 +202,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
         getPatientId(), getFName(), getLName(), getDiagnostic(), (currentDoctor != null ? getCurrentDoctor().getFName() + " " +
                 currentDoctor.getLName() : "None"), totalFees());
     }
-
+    
 
 }

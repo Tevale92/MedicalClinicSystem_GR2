@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 /**
- * Treament class which creates an object to describe the Treatment for the Patient.
+ * Treatment class which creates an object to describe the Treatment for the Patient.
  * @version 1.3
  * @since 11/15/2024
  * @author Louis Chartier, Rima Dagher and David Demers
@@ -19,7 +19,9 @@ public class Treatment {
 
     /**
      * Parameterized constructor for the Treatment class.
+     * @param treatmentID
      * @param treatmentDesc
+     * @param aDate
      * @param treatmentDuration
      * @param prescribedBy
      * @param treatmentCost
@@ -35,7 +37,7 @@ public class Treatment {
     }
 
     /**
-     * Setter method to set the treatment description.
+     * Setter method to set the treatment ID.
      * @param treatmentID
      */
     public void setTreatmentID(String treatmentID) {
