@@ -1,31 +1,32 @@
 /**
  * Billing class which creates an object to describe the Billing for the Patient.
- * @version 1.3
+ * @version 1.4
  * @since 11/18/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 
 public class Billing {
+
     /// Billing private data member
-    private double totBillingAmount;
+    private double totBillingAmount = 0;
 
     /**
-     * Parameterized constructor for the Billing class.
+     * Default and Parameterized constructor for the Billing class.
      * @param totBillingAmount
      */
     public Billing(double totBillingAmount) {
-        setTotBillingAmount(totBillingAmount);
+        addBill(totBillingAmount);
     }
 
     /**
      * Setter method to set the total billing amount.
-     * @param totBillingAmount
+     * @param billingAmount
      */
-    public void setTotBillingAmount(double totBillingAmount) {
-        if (totBillingAmount < 0) {
+    public void addBill(double billingAmount) {
+        if (billingAmount < 0) {
             throw new IllegalArgumentException("Total amount cannot be negative");
         }
-
+        this.totBillingAmount += billingAmount;
     }
 
     /**

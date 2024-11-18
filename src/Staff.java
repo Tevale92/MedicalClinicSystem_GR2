@@ -12,7 +12,7 @@ public abstract class Staff extends Person{
 
     /// private data members of the abstract Staff subclass
     private String staffID;
-    private double weeklySalary;
+    private double hoursWorked;
 
     /**
      * Parameterized constructor for the abstract Staff subclass.
@@ -23,13 +23,13 @@ public abstract class Staff extends Person{
      * @param gender
      * @param dob
      * @param staffID
-     * @param weeklySalary
+     * @param hoursWorked
      */
-    public Staff(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double weeklySalary) {
+    public Staff(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double hoursWorked) {
         super(fName, lName, age, gender, dob);
 
         setStaffID(staffID);
-        setWeeklySalary(weeklySalary);
+        setHoursWorked(hoursWorked);
     }
 
     /**
@@ -41,14 +41,14 @@ public abstract class Staff extends Person{
     }
     /**
      * Method to set the Staff object's weekly salary.
-     * @param weeklySalary
+     * @param hoursWorked
      * @throws IllegalArgumentException if weekly salary is negative
      */
-    public void setWeeklySalary(double weeklySalary) {
-        if (weeklySalary < 0) {
-            throw new IllegalArgumentException("Weekly salary cannot be negative");
+    public void setHoursWorked(double hoursWorked) {
+        if (hoursWorked < 0) {
+            throw new IllegalArgumentException("Hours Worked cannot be negative");
         }
-        this.weeklySalary = weeklySalary;
+        this.hoursWorked = hoursWorked;
     }
 
     /**
@@ -62,15 +62,9 @@ public abstract class Staff extends Person{
      * Getter method to return the Staff object's weekly salary.
      * @return weeklySalary
      */
-    public double getWeeklySalary() {
-        return weeklySalary;
+    public double getHoursWorked() {
+        return hoursWorked;
     }
-
-    /**
-     * Declaring abstract method to be defined by its subclasses.
-     * @return weeklySalary modified by overtime hours
-     */
-    abstract double overtimeSalary(double hours);
 
     /**
      * Default toString method for the abstract Staff subclass.
@@ -78,7 +72,7 @@ public abstract class Staff extends Person{
      */
     public String toString() {
         return super.toString() + "\nStaff ID: " + getStaffID() +
-                ".\nWeekly salary: " + String.format("%.2f$.", getWeeklySalary());
+                ".\nHours Worked: " + String.format("%.2f$.", getHoursWorked());
     }
 
 }
