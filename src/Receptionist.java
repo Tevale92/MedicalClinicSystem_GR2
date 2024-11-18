@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Subclass Receptionist which extends the abstract class Staff and implements the Schedulable interface.
  * Represents a Receptionist in the clinic who has a lit of all the scheduled appointments.
- * @version 1.3
+ * @version 1.4
  * @since 11/14/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
@@ -13,9 +13,21 @@ public class Receptionist extends Staff implements Schedulable {
 
     /// Receptionist private data members
     private ArrayList<Appointment> scheduleList = new ArrayList<>();
+    private Salary receptSalary = new Salary(false, getHoursWorked());
 
-    public Receptionist(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double weeklySalary) {
-        super(fName, lName, age, gender, dob, staffID, weeklySalary);
+    /**
+     * Parameterized constructor for the Receptionist class.
+     * Creates a Doctor object by calling the Staff constructor and initializing the Doctor data members.
+     * @param fName
+     * @param lName
+     * @param age
+     * @param gender
+     * @param dob
+     * @param staffID
+     * @param hoursWorked
+     */
+    public Receptionist(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double hoursWorked) {
+        super(fName, lName, age, gender, dob, staffID, hoursWorked);
     }
 
     /**
@@ -32,24 +44,6 @@ public class Receptionist extends Staff implements Schedulable {
      */
     public ArrayList<Appointment> getAppointments() {
         return scheduleList;
-    }
-
-    /**
-     * Defining abstract method from the Staff abstract class to calculate overtime salary.
-     * @param hours
-     * @return overtimeSalary is 25% more for Receptionist
-     * @throws IllegalArgumentException hours cannot be negative
-     */
-    public double overtimeSalary(double hours) {
-        if (hours < 0) {
-            throw new IllegalArgumentException("Hours cannot be negative");
-        }
-        double overtimeSalary = getWeeklySalary();
-        if (hours > 40) {
-            overtimeSalary = overtimeSalary/40;
-            overtimeSalary = (overtimeSalary * 40) + (overtimeSalary * (hours - 40) * 1.25);
-        }
-        return overtimeSalary;
     }
 
     /**
@@ -81,8 +75,8 @@ public class Receptionist extends Staff implements Schedulable {
      * @return Receptionist full info
      */
     public String displayInfo() {
-        return String.format("Staff ID: %s, %s %s%nTheir weekly salary is %.2d%n" +
+        return String.format("Staff ID: %s, %s %s%n%s%n" +
         "The list of appointments is; %s", getStaffID(), getFName(),
-        getLName(), getWeeklySalary(), getAppointments());
+        getLName(), receptSalary, getAppointments());
     }
 }

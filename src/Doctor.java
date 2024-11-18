@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Subclass Doctor which extends the abstract class Staff and implements the Schedulable interface.
  * Represents a Doctor in the clinic who has a list of patients and a list of appointments.
- * @version 1.3
+ * @version 1.4
  * @since 11/14/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
@@ -15,6 +15,7 @@ public class Doctor extends Staff implements Schedulable {
     private String drDesc;
     private ArrayList<Person> listOfPatients = new ArrayList<>();
     private ArrayList<Appointment> listOfAppointments = new ArrayList<>();
+    private Salary docSalary = new Salary(true, getHoursWorked());
 
     /**
      * Parameterized constructor for the Doctor class.
@@ -25,11 +26,11 @@ public class Doctor extends Staff implements Schedulable {
      * @param gender
      * @param dob
      * @param staffID
-     * @param weeklySalary
+     * @param hoursWorked
      * @param drDesc
      */
-    public Doctor(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double weeklySalary, String drDesc) {
-        super(fName, lName, age, gender, dob, staffID, weeklySalary);
+    public Doctor(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double hoursWorked, String drDesc) {
+        super(fName, lName, age, gender, dob, staffID, hoursWorked);
 
         setDrDesc(drDesc);
     }
@@ -79,24 +80,6 @@ public class Doctor extends Staff implements Schedulable {
     }
 
     /**
-     * Defining abstract method from the Staff abstract class to calculate overtime salary.
-     * @param hours
-     * @return overtimeSalary is 50% more for Doctor
-     * @throws IllegalArgumentException hours cannot be negative
-     */
-    public double overtimeSalary(double hours) {
-        if (hours < 0) {
-            throw new IllegalArgumentException("Hours cannot be negative");
-        }
-        double overtimeSalary = getWeeklySalary();
-        if (hours > 40) {
-            overtimeSalary = overtimeSalary/40;
-            overtimeSalary = (overtimeSalary * 40) + (overtimeSalary * (hours - 40) * 1.5);
-        }
-        return overtimeSalary;
-    }
-
-    /**
      * Defining abstract method from the Person superclass to update the general info.
      * @param fName
      * @param lName
@@ -126,8 +109,8 @@ public class Doctor extends Staff implements Schedulable {
      * @return Doctor full info
      */
     public String displayInfo() {
-        return String.format("Staff ID: %s, Dr. %s %s, %s%nTheir weekly salary is %.2d%n" +
+        return String.format("Staff ID: %s, Dr. %s %s, %s%n%s%n" +
                 "Their list of patients is; %s%nTheir list of appointments is; %s", getStaffID(), getFName(),
-                getLName(), getDrDesc(), getWeeklySalary(), getListOfPatients(), getAppointments());
+                getLName(), getDrDesc(), docSalary, getListOfPatients(), getAppointments());
     }
 }

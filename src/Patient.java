@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Subclass Patient which extends Person class and implements the Treatable and Schedulable interfaces.
  * Represent a Patient in the clinic with specific attributes and behaviors.
- * @version 1.3
+ * @version 1.4
  * @since 11/15/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
@@ -19,7 +19,7 @@ public class Patient extends  Person implements Schedulable, Treatable {
     private LocalDate dismissedDate;
     private Doctor currentDoctor;
     private ArrayList<Appointment> appointments = new ArrayList<>();
-    private ArrayList<Billing> billings = new ArrayList<>();
+    private Billing patientBill;
 
     /**
      * Default parameterized constructor for the Patient Class.
@@ -43,7 +43,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
         setAdmitDate(admitDate);
         setDismissedDate(dismissedDate);
         setCurrentDoctor(currentDoctor);
-        this.billings = new ArrayList<>();
     }
 
     /**
@@ -66,6 +65,7 @@ public class Patient extends  Person implements Schedulable, Treatable {
      */
     public void performTreatment(Treatment treatment) {
         treatmentsList.add(treatment);
+        patientBill.addBill(treatment.getTreatmentCost());
     }
     /**
      * Setter method to set the patient's adimt date.
@@ -94,14 +94,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
      */
     public  void scheduleAppointment(Appointment appointment) {
         appointments.add(appointment);
-    }
-
-    /**
-     * Method to add billing object to the patient class.
-     * @param billing
-     */
-    public void addBilling(Billing billing) {
-        billings.add(billing);
     }
 
     /**
@@ -147,16 +139,11 @@ public class Patient extends  Person implements Schedulable, Treatable {
         return currentDoctor;
     }
     /**
-     * Method to calculate the total fees from the treatments the patients has received
-     * by calling the costs of each treatment in the treatment list.
+     * Getter method to return the total billing amount of patientBill.
      * @return The total treatment cost for the patient.
      */
-    public double totalFees() {
-        double total = 0.0;
-        for(Treatment treatment: treatmentsList) {
-            total+= treatment.getTreatmentCost();
-        }
-        return total;
+    public double getTotalFees() {
+        return patientBill.getTotBillingAmount();
     }
     /**
      * Implementing the Schedulable interface method to return the Patient's appointments.
@@ -198,10 +185,7 @@ public class Patient extends  Person implements Schedulable, Treatable {
      * @return Patient full info
      */
     public String displayInfo() {
-        return String.format("Patient ID: %s, Name: %s %s, Diagnosis: %s, Current Doctor: %s, Total Fees: %.2f",
-        getPatientId(), getFName(), getLName(), getDiagnostic(), (currentDoctor != null ? getCurrentDoctor().getFName() + " " +
-                currentDoctor.getLName() : "None"), totalFees());
+        return String.format("Patient ID: %s, Name: %s %s%nCurrent Doctor: %s%nDiagnosis: %s%n%s",
+        getPatientId(), getFName(), getLName(), getCurrentDoctor(), getDiagnostic(), patientBill);
     }
-    
-
 }
