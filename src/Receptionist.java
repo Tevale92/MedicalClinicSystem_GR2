@@ -4,16 +4,12 @@ import java.util.ArrayList;
 /**
  * Subclass Receptionist which extends the abstract class Staff and implements the Schedulable interface.
  * Represents a Receptionist in the clinic who has a lit of all the scheduled appointments.
- * @version 1.4
+ * @version 1.5
  * @since 11/14/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 
-public class Receptionist extends Staff implements Schedulable {
-
-    /// Receptionist private data members
-    private ArrayList<Appointment> scheduleList = new ArrayList<>();
-    private Salary receptSalary = new Salary(false, getHoursWorked());
+public class Receptionist extends Staff {
 
     /**
      * Parameterized constructor for the Receptionist class.
@@ -26,24 +22,8 @@ public class Receptionist extends Staff implements Schedulable {
      * @param staffID
      * @param hoursWorked
      */
-    public Receptionist(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double hoursWorked) {
-        super(fName, lName, age, gender, dob, staffID, hoursWorked);
-    }
-
-    /**
-     * Defining interface method from Schedulable to add an Appointment to the list of appointments.
-     * @param appointment
-     */
-    public void scheduleAppointment(Appointment appointment) {
-        scheduleList.add(appointment);
-    }
-
-    /**
-     * Defining interface method from Schedulable to return the list of Appointment objects.
-     * @return scheduleList
-     */
-    public ArrayList<Appointment> getAppointments() {
-        return scheduleList;
+    public Receptionist(String fName, String lName, int age, String gender, LocalDate dob, String staffID, double hoursWorked, double rate) {
+        super(fName, lName, age, gender, dob, staffID, hoursWorked, rate);
     }
 
     /**
@@ -67,7 +47,7 @@ public class Receptionist extends Staff implements Schedulable {
      * @return Receptionist basic info
      */
     public String toString() {
-        return String.format("Staff ID: %s, Dr. %s %s", getStaffID(), getFName(), getLName());
+        return String.format("Staff ID: %s, Dr. %s %s", getId(), getFName(), getLName());
     }
 
     /**
@@ -76,7 +56,7 @@ public class Receptionist extends Staff implements Schedulable {
      */
     public String displayInfo() {
         return String.format("Staff ID: %s, %s %s%n%s%n" +
-        "The list of appointments is; %s", getStaffID(), getFName(),
-        getLName(), receptSalary, getAppointments());
+        "The list of appointments is; %s", getId(), getFName(),
+        getLName(), getStaffSalary(), getAppointments());
     }
 }

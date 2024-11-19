@@ -2,7 +2,7 @@ import java.time.LocalDate;
 
 /**
  * Appointment class which creates an object to describe the Appointment for the Patient and Staff.
- * @version 1.3
+ * @version 1.5
  * @since 11/15/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
@@ -10,8 +10,8 @@ import java.time.LocalDate;
 public class Appointment {
 
     /// Appointment private data members
-    private Patient patient;
-    private Doctor doctor;
+    private Person patient;
+    private Person doctor;
     private LocalDate date;
 
     /**
@@ -20,7 +20,7 @@ public class Appointment {
      * @param aDoctor
      * @param aDate
      */
-    public Appointment(Patient aPatient, Doctor aDoctor, LocalDate aDate) {
+    public Appointment(Person aPatient, Person aDoctor, LocalDate aDate) {
         setPatient(aPatient);
         setDoctor(aDoctor);
         setDate(aDate);
@@ -30,14 +30,14 @@ public class Appointment {
      * Setter method to set the Patient of the appointment.
      * @param aPatient
      */
-    public void setPatient(Patient aPatient) {
+    public void setPatient(Person aPatient) {
         this.patient = aPatient;
     }
     /**
      * Setter method to set the Doctor of the appointment.
      * @param aDoctor
      */
-    public void setDoctor(Doctor aDoctor) {
+    public void setDoctor(Person aDoctor) {
         this.doctor = aDoctor;
     }
     /**
@@ -49,17 +49,28 @@ public class Appointment {
     }
 
     /**
+     * Method to edit and return an Appointment.
+     */
+    public Appointment editAppointment(Appointment aAppointment) {
+        setPatient(aAppointment.getPatient());
+        setDoctor(aAppointment.getDoctor());
+        setDate(aAppointment.getDate());
+
+        return this;
+    }
+
+    /**
      * Getter method to return the Patient of the appointment.
      * @return person
      */
-    public Patient getPatient() {
+    public Person getPatient() {
         return patient;
     }
     /**
      * Getter method to return the Doctor of the appointment.
      * @return doctor
      */
-    public Doctor getDoctor() {
+    public Person getDoctor() {
         return doctor;
     }
     /**

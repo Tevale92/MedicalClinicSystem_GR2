@@ -5,18 +5,19 @@
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 public enum MenuOption {
-    ADD_DOCTOR(1, "Add a Doctor user"),
-    ADD_PATIENT(2, "Add a Patient"),
-    ADD_RECEPTIONIST(3, "Add a Receptionist user"),
+    ADD_DOCTOR(1, "Add a new Doctor"),
+    ADD_PATIENT(2, "Add a new Patient"),
+    ADD_RECEPTIONIST(3, "Add a new Receptionist"),
     DISPLAY_DOCTOR_INFO(4, "Display Doctor Information"),
     DISPLAY_PATIENT_INFO(5, "Display Patient Information"),
-    ADD_TREATMENT(6, "Add a Treatment"),
-    VIEW_TREATMENT_DETAILS(7, "View Treatment Details"),
-    EDIT_TREATMENT(8, "Edit Treatment"),
-    EXIT(9, "Exit"),
-    DOCTOR(10, "Login as Doctor"),
-    PATIENT(20, "Login as Patient"),
-    RECEPTIONIST(30, "Login as Receptionist");
+    DISPLAY_RECEPTIONIST_INFO(6, "Display Receptionist Information"),
+    ADD_TREATMENT(7, "Add a Treatment"),
+    VIEW_TREATMENT_DETAILS(8, "View Treatment Details"),
+    EDIT_TREATMENT(9, "Edit Treatment"),
+    ADD_APPOINTMENT(10, "Add a Appointment"),
+    VIEW_APPOINTMENT(11, "View Appointments"),
+    EDIT_APPOINTMENT(12, "Edit Appointment"),
+    EXIT(13, "Exit");
 
     /// MenuOption data members
     private final int value;

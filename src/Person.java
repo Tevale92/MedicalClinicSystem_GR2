@@ -1,14 +1,15 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Abstract Superclass Person which defines
  * the common attributes and methods for any person at the Clinic.
- * @version 1.3
+ * @version 1.5
  * @since 11/14/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 
-public abstract class Person {
+public abstract class Person implements Schedulable, Treatable{
 
     /// Person private data members
     private String fName;
@@ -16,6 +17,8 @@ public abstract class Person {
     private int age;
     private String gender;
     private LocalDate dob;
+    private ArrayList<Treatment> treatmentsList = new ArrayList<>();
+    private ArrayList<Appointment> appointmentList = new ArrayList<>();
 
     /**
      * Parameterized constructor for the Person class.
@@ -72,6 +75,21 @@ public abstract class Person {
     public void setDob(LocalDate dob) {
         this.dob = dob;
     }
+    /**
+     * Implementing Treatable interface method to add a treatment to the Persons's treatments.
+     * @param treatment
+     */
+    public void performTreatment(Treatment treatment) {
+        treatmentsList.add(treatment);
+    }
+    /**
+     * Implementing Schedulabe interface method to add an appointment to the Persons's appointments.
+     * @param appointment
+     */
+    public void scheduleAppointment(Appointment appointment) {
+        appointmentList.add(appointment);
+    }
+
 
     /**
      * Getter method to return the Person object's first name.
@@ -108,6 +126,20 @@ public abstract class Person {
     public LocalDate getDob() {
         return dob;
     }
+    /**
+     * Implementing the Treatable interface method to return the Patient's treatments.
+     * @return treatments.
+     */
+    public ArrayList<Treatment> treatmentDescs() {
+        return treatmentsList;
+    }
+    /**
+     * Implementing the Schedulable interface method to return the Patient's appointments.
+     * @return appointments.
+     */
+    public ArrayList<Appointment> getAppointments() {
+        return appointmentList;
+    }
 
     /**
      * Default toString method for the Person class.
@@ -118,8 +150,11 @@ public abstract class Person {
                 getAge());
     }
 
+    /// Abstract person method to update the basic person data members.
     public abstract void updateInfo(String fName, String lName, int age, String gender, LocalDate dob);
-
+    /// Abstract person method to display more detailed info on the person.
     public abstract String displayInfo();
+    /// Abstract person method to get the person's id
+    public abstract String getId();
 
 }

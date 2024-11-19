@@ -4,22 +4,20 @@ import java.util.ArrayList;
 /**
  * Subclass Patient which extends Person class and implements the Treatable and Schedulable interfaces.
  * Represent a Patient in the clinic with specific attributes and behaviors.
- * @version 1.4
+ * @version 1.5
  * @since 11/15/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
 
-public class Patient extends  Person implements Schedulable, Treatable {
+public class Patient extends Person {
 
     /// Private Data members
     private String patientId;
     private String diagnostic;
-    private ArrayList<Treatment> treatmentsList = new ArrayList<>();
     private LocalDate admitDate;
     private LocalDate dismissedDate;
     private Doctor currentDoctor;
-    private ArrayList<Appointment> appointments = new ArrayList<>();
-    private Billing patientBill;
+    private Billing patientBill = new Billing();
 
     /**
      * Default parameterized constructor for the Patient Class.
@@ -32,17 +30,15 @@ public class Patient extends  Person implements Schedulable, Treatable {
      * @param diagnostic
      * @param admitDate
      * @param dismissedDate
-     * @param currentDoctor
      */
     public Patient(String fName, String lName, int age, String gender, LocalDate dob, String patientId, String diagnostic,
-        LocalDate admitDate, LocalDate dismissedDate, Doctor currentDoctor) {
+        LocalDate admitDate, LocalDate dismissedDate) {
         super(fName, lName, age, gender, dob);
 
         setPatientId(patientId);
         setDiagnostic(diagnostic);
         setAdmitDate(admitDate);
         setDismissedDate(dismissedDate);
-        setCurrentDoctor(currentDoctor);
     }
 
     /**
@@ -58,14 +54,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
      */
     public void setDiagnostic(String diagnostic) {
         this.diagnostic = diagnostic;
-    }
-    /**
-     * Implementing Treatable interface method to add a treatment to the patient's treatment list.
-     * @param treatment
-     */
-    public void performTreatment(Treatment treatment) {
-        treatmentsList.add(treatment);
-        patientBill.addBill(treatment.getTreatmentCost());
     }
     /**
      * Setter method to set the patient's adimt date.
@@ -89,18 +77,19 @@ public class Patient extends  Person implements Schedulable, Treatable {
         this.currentDoctor = currentDoctor;
     }
     /**
-     * Implementing Schedulabe interface method to add an appointment to the Patient's appointments.
-     * @param appointment
+     * Implementing Treatable interface method to add a treatment to the patient's treatment list.
+     * @param treatment
      */
-    public  void scheduleAppointment(Appointment appointment) {
-        appointments.add(appointment);
+    public void performTreatment(Treatment treatment) {
+        super.performTreatment(treatment);
+        patientBill.addBill(treatment.getTreatmentCost());
     }
 
     /**
      * Getter method to return the patient ID.
      * @return patientID
      */
-    public String getPatientId() {
+    public String getId() {
         return  patientId;
     }
     /**
@@ -109,13 +98,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
      */
     public String getDiagnostic() {
         return diagnostic;
-    }
-    /**
-     * Implementing the Treatable interface method to return the Patient's treatments list.
-     * @return treatmentsList
-     */
-    public ArrayList<Treatment> treatmentDescs() {
-        return treatmentsList;
     }
     /**
      * Getter method to return the patient's admission date.
@@ -145,14 +127,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
     public double getTotalFees() {
         return patientBill.getTotBillingAmount();
     }
-    /**
-     * Implementing the Schedulable interface method to return the Patient's appointments.
-     * @return appointments.
-     */
-    @Override
-    public  ArrayList<Appointment> getAppointments() {
-        return  appointments;
-    }
 
     /**
      * Defining abstract method from the Person superclass to update the general info.
@@ -177,7 +151,7 @@ public class Patient extends  Person implements Schedulable, Treatable {
     @Override
     public String toString() {
         return  String.format("Patient ID: %s, Name: %s %s",
-                getPatientId(), getFName(), getLName());
+                getId(), getFName(), getLName());
     }
 
     /**
@@ -186,6 +160,6 @@ public class Patient extends  Person implements Schedulable, Treatable {
      */
     public String displayInfo() {
         return String.format("Patient ID: %s, Name: %s %s%nCurrent Doctor: %s%nDiagnosis: %s%n%s",
-        getPatientId(), getFName(), getLName(), getCurrentDoctor(), getDiagnostic(), patientBill);
+        getId(), getFName(), getLName(), getCurrentDoctor(), getDiagnostic(), patientBill);
     }
 }

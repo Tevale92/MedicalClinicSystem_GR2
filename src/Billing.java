@@ -1,6 +1,6 @@
 /**
  * Billing class which creates an object to describe the Billing for the Patient.
- * @version 1.4
+ * @version 1.5
  * @since 11/18/2024
  * @author Louis Chartier, Rima Dagher and David Demers
  */
@@ -10,8 +10,12 @@ public class Billing {
     /// Billing private data member
     private double totBillingAmount = 0;
 
+    /// Default constructor for the Billing class.
+    public Billing() {
+        totBillingAmount = 0;
+    }
     /**
-     * Default and Parameterized constructor for the Billing class.
+     * Parameterized constructor for the Billing class.
      * @param totBillingAmount
      */
     public Billing(double totBillingAmount) {
