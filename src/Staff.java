@@ -33,6 +33,7 @@ public abstract class Staff extends Person{
 
         setStaffID(staffID);
         setHoursWorked(hoursWorked);
+        setRate(rate);
         setSalary(hoursWorked, rate);
     }
 
@@ -53,6 +54,17 @@ public abstract class Staff extends Person{
             throw new IllegalArgumentException("Hours Worked cannot be negative");
         }
         this.hoursWorked = hoursWorked;
+    }
+    /**
+     * Method to set the Staff object's hours worked this week.
+     * @param rate
+     * @throws IllegalArgumentException if rate is negative
+     */
+    public void setRate(double rate) {
+        if (rate <= 0) {
+            throw new IllegalArgumentException("Salary cannot be less or equal to zero.");
+        }
+        this.rate = rate;
     }
     /// Method to set the Salary object of the Staff object.
     public void setSalary(double hoursWorked, double rate) {
@@ -92,7 +104,7 @@ public abstract class Staff extends Person{
      * @param treatment
      */
     public void performTreatment(Treatment treatment) {
-        performTreatment(treatment);
+        super.performTreatment(treatment);
     }
 
     /**
